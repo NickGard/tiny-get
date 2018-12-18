@@ -54,10 +54,10 @@ describe("get object properties", () => {
 
   weirdKeys.forEach(key => {
     it(`should get the value at <<${key}>> rather than a nested value`, () => {
-      const weirdObj = weirdKeys.reduce(
-        (o, k) => ({ ...o, [k]: "success" }),
-        {}
-      );
+      const weirdObj = weirdKeys.reduce((o, k) => {
+        o[k] = "success";
+        return o;
+      }, {});
       expect(get(weirdObj, key)).to.equal("success");
     });
   });

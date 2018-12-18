@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha src/",
+    "test:watch": "mocha src/ --watch",
     "build": "uglifyjs --compress --mangle --output index.js -- src/index.js"
   },
   "repository": {

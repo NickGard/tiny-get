@@ -9,6 +9,7 @@ describe("get object properties", () => {
     "]",
     "[",
     "['a']",
+    "['a",
     "{}",
     " a",
     " a.b",
@@ -21,29 +22,29 @@ describe("get object properties", () => {
     '"0"'
   ];
   const obj = {
-    a: {
+    az: {
       b: "success"
     }
   };
   const validNestedAccessors = [
-    '["a"]["b"]',
-    "['a']['b']",
-    `['a']["b"]`,
-    `["a"]['b']`,
-    'a["b"]',
-    "a['b']",
-    `['a'].b`,
-    `["a"].b`,
-    "a.b",
-    " a . b ",
-    ' [ "a" ] [ "b" ] ',
-    " [ 'a' ] [ 'b' ] ",
-    ` [ 'a' ] [ "b" ] `,
-    ` [ "a" ] [ 'b' ] `,
-    ' a [ "b" ] ',
-    " a [ 'b' ] ",
-    ` [ 'a' ] . b `,
-    ` [ "a" ] . b `
+    '["az"]["b"]',
+    "['az']['b']",
+    `['az']["b"]`,
+    `["az"]['b']`,
+    'az["b"]',
+    "az['b']",
+    `['az'].b`,
+    `["az"].b`,
+    "az.b",
+    " az . b ",
+    ' [ "az" ] [ "b" ] ',
+    " [ 'az' ] [ 'b' ] ",
+    ` [ 'az' ] [ "b" ] `,
+    ` [ "az" ] [ 'b' ] `,
+    ' az [ "b" ] ',
+    " az [ 'b' ] ",
+    ` [ 'az' ] . b `,
+    ` [ "az" ] . b `
   ];
 
   validNestedAccessors.forEach(key => {
@@ -65,6 +66,29 @@ describe("get object properties", () => {
   it("should return a top-level weird key before following the same path", () => {
     const o = { a: { b: "fail" }, "a.b": "success" };
     expect(get(o, "a.b")).to.equal("success");
+  });
+});
+
+describe("get object property with an array path", () => {
+  it("should get an object property with sane key names", () => {
+    const o = {
+      foo: {
+        bar: {
+          baz: "success"
+        }
+      }
+    };
+    expect(get(o, "['foo']['bar']['baz']")).to.equal("success");
+    // expect(o['foo']['bar']['baz']).to.equal("success");
+  });
+  it("should get an object property with weird key names", () => {
+    const o = {
+      "[fo": {
+        "o]": "success"
+      },
+      foo: "failure"
+    };
+    expect(get(o, "['[fo']['o]']")).to.equal("success");
   });
 });
 

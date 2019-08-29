@@ -6,7 +6,6 @@
 [![license](https://badgen.net/badge/license/MIT/blue)](https://badgen.net/badge/license/MIT/blue)
 
 A minimal-weight utility similar to `lodash.get`. For when every byte counts!
-A key difference is that `tiny-get` only accepts string paths, not arrays.
 
 <hr/>
 
@@ -26,7 +25,7 @@ get(/* root, path [, default] */)
 
 `root` - An object or array to traverse
 <br/>
-`path` - A string of the path to be traversed
+`path` - A string of the path, or an array of property names to be traversed
 <br/>
 `default` - [optional] A value to be returned if the path does not exist or results in an undefined value
 
@@ -41,4 +40,6 @@ an undefined value, then `tiny-get` will return `undefined` or the default value
 import { get } from '@ngard/tiny-get';
 
 const value = get(baseObj, 'really.deep.value', 'defaultValue');
+const value = get(baseObj, 'really["deep"].value', 'defaultValue');
+const value = get(baseObj, ['really', 'deep', 'value'], 'defaultValue');
 ```

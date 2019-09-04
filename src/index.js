@@ -7,12 +7,11 @@ exports.get = function(root, path, defaultValue) {
     if (Array.isArray(path)) path = "['" + path.join("']['") + "']";
     var obj = root;
     path.replace(
-      /\[\s*(['"])(((?!\1).)*)\1\s*\]|^\s*(\w+)\s*(?=\.|\[|$)|\.\s*(\w*)\s*(?=\.|\[|$)|\[\s*(-?\d+)\s*\]/g,
+      /\[\s*(['"])(.*?)\1\s*\]|^\s*(\w+)\s*(?=\.|\[|$)|\.\s*(\w*)\s*(?=\.|\[|$)|\[\s*(-?\d+)\s*\]/g,
       function(
         wholeMatch,
         quotationMark,
         quotedProp,
-        lastQuotedChar,
         firstLevel,
         namedProp,
         index
